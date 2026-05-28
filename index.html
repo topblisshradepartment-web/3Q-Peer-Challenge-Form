@@ -147,7 +147,8 @@
     }
 
     .field input,
-    .field textarea {
+    .field textarea,
+    .field select {
       width: 100%;
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
@@ -161,8 +162,19 @@
       resize: vertical;
     }
 
+    .field select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238A8780' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 32px;
+      cursor: pointer;
+    }
+
     .field input:focus,
-    .field textarea:focus {
+    .field textarea:focus,
+    .field select:focus {
       border-color: var(--purple-main);
       background: var(--white);
       box-shadow: 0 0 0 3px rgba(75, 58, 199, 0.12);
@@ -395,11 +407,95 @@
     <div class="meta-grid">
       <div class="field">
         <label for="scriber">Scriber name <span class="req">*</span></label>
-        <input type="text" id="scriber" placeholder="e.g. Juan dela Cruz" autocomplete="off" />
+        <select id="scriber">
+          <option value="">— Select scriber —</option>
+          <option>DACILLO MARI SALVACION P</option>
+          <option>CHAVEZ MARIA ANGELICA A</option>
+          <option>BERNARDINO HAZEL MAE S</option>
+          <option>CARANDANG ANGELA</option>
+          <option>RUADO MARICRIS R</option>
+          <option>VIDAL FARAH MAE T</option>
+          <option>SACUEZA ROSALIE P</option>
+          <option>SANTIAGO JOAN A</option>
+          <option>CAPALAR MARI ANN C</option>
+          <option>FLORES CARLO G</option>
+          <option>DULDULAO ELVIN A</option>
+          <option>DEE PONA HARVEY B</option>
+          <option>TRUELEN ARNEL T</option>
+          <option>FULLER ARIANETTE G</option>
+          <option>MARCOS MARIVI U</option>
+          <option>JEBULAN JENNYLYN A</option>
+          <option>UNABIA LYZA</option>
+          <option>ROSARIO ALLAN</option>
+          <option>GARAY XIAN</option>
+          <option>BOYLES MARY ANN S</option>
+          <option>TAMAYO ARNIELYN</option>
+          <option>TAGALOG RITA</option>
+          <option>ABEAR MYLENE</option>
+          <option>BOLASOC NICOLE B</option>
+          <option>SEVILLON REGINA M</option>
+          <option>RIAZON JAYCIN LASTIMADO</option>
+          <option>REFUYA MERYL</option>
+          <option>NABUAL IMEE</option>
+          <option>ARANETA KATHLENE CATE</option>
+          <option>ALBARICO JOHN LLOYD</option>
+          <option>PARADO ARIES</option>
+          <option>DENMARK BENSING</option>
+          <option>PADILLA MIRA FLOR</option>
+          <option>CRUZ CHRISTAL JANE</option>
+          <option>AGUIMOD LOUIE JAMES</option>
+          <option>SEMILLA ANGELICA</option>
+          <option>ORSAGA MALYN</option>
+          <option>PINGOL JECELL</option>
+          <option>BOLADO MARY MARGARETH</option>
+          <option>BAUTISTA NERISSA CINCO</option>
+        </select>
       </div>
       <div class="field">
         <label for="responder">Responder name (Sharer) <span class="req">*</span></label>
-        <input type="text" id="responder" placeholder="e.g. Maria Santos" autocomplete="off" />
+        <select id="responder">
+          <option value="">— Select responder —</option>
+          <option>DACILLO MARI SALVACION P</option>
+          <option>CHAVEZ MARIA ANGELICA A</option>
+          <option>BERNARDINO HAZEL MAE S</option>
+          <option>CARANDANG ANGELA</option>
+          <option>RUADO MARICRIS R</option>
+          <option>VIDAL FARAH MAE T</option>
+          <option>SACUEZA ROSALIE P</option>
+          <option>SANTIAGO JOAN A</option>
+          <option>CAPALAR MARI ANN C</option>
+          <option>FLORES CARLO G</option>
+          <option>DULDULAO ELVIN A</option>
+          <option>DEE PONA HARVEY B</option>
+          <option>TRUELEN ARNEL T</option>
+          <option>FULLER ARIANETTE G</option>
+          <option>MARCOS MARIVI U</option>
+          <option>JEBULAN JENNYLYN A</option>
+          <option>UNABIA LYZA</option>
+          <option>ROSARIO ALLAN</option>
+          <option>GARAY XIAN</option>
+          <option>BOYLES MARY ANN S</option>
+          <option>TAMAYO ARNIELYN</option>
+          <option>TAGALOG RITA</option>
+          <option>ABEAR MYLENE</option>
+          <option>BOLASOC NICOLE B</option>
+          <option>SEVILLON REGINA M</option>
+          <option>RIAZON JAYCIN LASTIMADO</option>
+          <option>REFUYA MERYL</option>
+          <option>NABUAL IMEE</option>
+          <option>ARANETA KATHLENE CATE</option>
+          <option>ALBARICO JOHN LLOYD</option>
+          <option>PARADO ARIES</option>
+          <option>DENMARK BENSING</option>
+          <option>PADILLA MIRA FLOR</option>
+          <option>CRUZ CHRISTAL JANE</option>
+          <option>AGUIMOD LOUIE JAMES</option>
+          <option>SEMILLA ANGELICA</option>
+          <option>ORSAGA MALYN</option>
+          <option>PINGOL JECELL</option>
+          <option>BOLADO MARY MARGARETH</option>
+          <option>BAUTISTA NERISSA CINCO</option>
+        </select>
       </div>
       <div class="field">
         <label for="team">Team <span class="req">*</span></label>
@@ -515,9 +611,11 @@
   }
 
   function clearForm() {
-    ['scriber', 'responder', 'team', 'q1-ans', 'q2-notes', 'q3-ans'].forEach(id => {
+    ['q1-ans', 'q2-notes', 'q3-ans', 'team'].forEach(id => {
       document.getElementById(id).value = '';
     });
+    document.getElementById('scriber').value = '';
+    document.getElementById('responder').value = '';
     document.querySelectorAll('input[name="cause"]').forEach(r => r.checked = false);
     document.getElementById('date').valueAsDate = new Date();
     document.getElementById('toast').style.display = 'none';
