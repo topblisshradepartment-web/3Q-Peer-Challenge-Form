@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3Q Peer Challenge Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple-dark: #3B2BA8;
+      --purple-main: #4B3AC7;
+      --purple-mid: #534AB7;
+      --purple-light: #EEEDFE;
+      --purple-text: #3C3489;
+      --teal-bg: #E1F5EE;
+      --teal-border: #1D9E75;
+      --teal-text: #085041;
+      --red-bg: #FCEBEB;
+      --red-border: #E24B4A;
+      --red-text: #501313;
+      --gray-100: #F7F6F4;
+      --gray-200: #EEECE8;
+      --gray-300: #D8D5CE;
+      --gray-500: #8A8780;
+      --gray-700: #4A4844;
+      --gray-900: #1C1B19;
+      --white: #FFFFFF;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      min-height: 100vh;
+      padding: 2.5rem 1rem;
+    }
+
+    .page-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .form-header {
+      background: var(--purple-main);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+
+    .form-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 30px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+
+    .header-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
+    }
+
+    .form-header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .form-header p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+
+    /* Card */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 12px;
+    }
+
+    /* Grid */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 520px) {
+      .meta-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Fields */
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .field label .req {
+      color: var(--purple-main);
+      margin-left: 2px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--gray-900);
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+      outline: none;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--purple-main);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(75, 58, 199, 0.12);
+    }
+
+    .field textarea { min-height: 88px; line-height: 1.6; }
+    .field textarea.short { min-height: 64px; }
+
+    input[type="date"] { cursor: pointer; }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--gray-200);
+      margin: 1.25rem 0;
+    }
+
+    /* Q card */
+    .q-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .q-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--purple-light);
+      color: var(--purple-text);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .q-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--purple-mid);
+      margin-bottom: 4px;
+    }
+
+    .q-question {
+      font-size: 14px;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--gray-900);
+      line-height: 1.5;
+      margin-bottom: 3px;
+    }
+
+    .q-note {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .radio-opt { flex: 1; }
+
+    .radio-opt input[type="radio"] { display: none; }
+
+    .radio-opt label {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 8px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--gray-700);
+      background: var(--gray-100);
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+
+    .radio-opt label:hover {
+      border-color: var(--purple-mid);
+      background: var(--white);
+    }
+
+    .radio-opt input[type="radio"]:checked + label {
+      background: var(--purple-light);
+      border-color: var(--purple-main);
+      color: var(--purple-text);
+    }
+
+    .radio-sub {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+
+    .radio-opt input[type="radio"]:checked + label .radio-sub {
+      color: var(--purple-mid);
+    }
+
+    /* Submit row */
+    .submit-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 1.25rem;
+    }
+
+    .btn-clear {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-300);
+      background: transparent;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-clear:hover { background: var(--gray-100); }
+
+    .btn-submit {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: var(--radius-md);
+      border: none;
+      background: var(--purple-main);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-submit:hover { background: var(--purple-dark); }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Spinner */
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Toast */
+    .toast {
+      display: none;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    .toast.success {
+      background: var(--teal-bg);
+      border: 1px solid var(--teal-border);
+      color: var(--teal-text);
+    }
+
+    .toast.error {
+      background: var(--red-bg);
+      border: 1px solid var(--red-border);
+      color: var(--red-text);
+    }
+
+    /* Footer note */
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-top: 2rem;
+      padding-bottom: 1rem;
+    }
+
+    /* Fade-in animation */
+    .card, .form-header {
+      animation: fadeUp 0.35s ease both;
+    }
+
+    .card:nth-child(2) { animation-delay: 0.05s; }
+    .card:nth-child(3) { animation-delay: 0.1s; }
+    .card:nth-child(4) { animation-delay: 0.15s; }
+    .card:nth-child(5) { animation-delay: 0.2s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <div class="form-header">
+    <span class="header-tag">Top Bliss Solutions Inc.</span>
+    <h1>3Q Peer Challenge Form</h1>
+    <p>Accountability check for missed commitments — answer all three questions in order. Responses are saved directly to Google Sheets.</p>
+  </div>
+
+  <!-- Session Details -->
+  <div class="card">
+    <div class="section-label">Session details</div>
+    <div class="meta-grid">
+      <div class="field">
+        <label for="scriber">Scriber name <span class="req">*</span></label>
+        <input type="text" id="scriber" placeholder="e.g. Juan dela Cruz" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="responder">Responder name (Sharer) <span class="req">*</span></label>
+        <input type="text" id="responder" placeholder="e.g. Maria Santos" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="team">Team <span class="req">*</span></label>
+        <input type="text" id="team" placeholder="e.g. Operations" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="date">Date <span class="req">*</span></label>
+        <input type="date" id="date" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="card">
+    <div class="q-header">
+      <div class="q-badge">Q1</div>
+      <div>
+        <div class="q-tag">Clarity</div>
+        <div class="q-question">"When you said you'd do it — what did done look like to you?"</div>
+        <div class="q-note">Check if the original goal was clear enough</div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="q1-ans">Responder's answer <span class="req">*</span></label>
+      <textarea id="q1-ans" placeholder="What was the responder's understanding of the goal or commitment?"></textarea>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card">
+    <div class="q-header">
+      <div class="q-badge">Q2</div>
+      <div>
+        <div class="q-tag">Cause</div>
+        <div class="q-question">"Was the real reason — Priority, Capacity, or Clarity?"</div>
+        <div class="q-note">Choose one root cause</div>
+      </div>
+    </div>
+    <div class="radio-group">
+      <div class="radio-opt">
+        <input type="radio" name="cause" id="c-priority" value="Priority" />
+        <label for="c-priority">
+          Priority
+          <span class="radio-sub">Had other things first</span>
+        </label>
+      </div>
+      <div class="radio-opt">
+        <input type="radio" name="cause" id="c-capacity" value="Capacity" />
+        <label for="c-capacity">
+          Capacity
+          <span class="radio-sub">No time or energy</span>
+        </label>
+      </div>
+      <div class="radio-opt">
+        <input type="radio" name="cause" id="c-clarity" value="Clarity" />
+        <label for="c-clarity">
+          Clarity
+          <span class="radio-sub">Task was unclear</span>
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="q2-notes">Additional notes <span style="font-weight:400;color:var(--gray-500)">(optional)</span></label>
+      <textarea id="q2-notes" class="short" placeholder="Any context the scriber wants to note..."></textarea>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card">
+    <div class="q-header">
+      <div class="q-badge">Q3</div>
+      <div>
+        <div class="q-tag">Correction</div>
+        <div class="q-question">"What is one specific thing you will do differently before next cycle?"</div>
+        <div class="q-note">Must be specific and verifiable — not just "try harder"</div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="q3-ans">Responder's commitment <span class="req">*</span></label>
+      <textarea id="q3-ans" placeholder="Write the specific action the responder commits to before the next cycle..."></textarea>
+    </div>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn-clear" onclick="clearForm()">Clear form</button>
+    <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+      <span id="btn-label">Save to Google Sheets</span>
+    </button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <p class="footer-note">Top Bliss Solutions Inc. &mdash; HR People Operations</p>
+
+</div>
+
+<script>
+  // ============================================================
+  // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+  // ============================================================
+  const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+  // ============================================================
+
+  // Set today's date on load
+  document.getElementById('date').valueAsDate = new Date();
+
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.innerHTML = msg;
+    t.className = 'toast ' + type;
+    t.style.display = 'block';
+    t.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function clearForm() {
+    ['scriber', 'responder', 'team', 'q1-ans', 'q2-notes', 'q3-ans'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.querySelectorAll('input[name="cause"]').forEach(r => r.checked = false);
+    document.getElementById('date').valueAsDate = new Date();
+    document.getElementById('toast').style.display = 'none';
+  }
+
+  async function submitForm() {
+    const scriber   = document.getElementById('scriber').value.trim();
+    const responder = document.getElementById('responder').value.trim();
+    const team      = document.getElementById('team').value.trim();
+    const date      = document.getElementById('date').value;
+    const q1        = document.getElementById('q1-ans').value.trim();
+    const causeEl   = document.querySelector('input[name="cause"]:checked');
+    const q2notes   = document.getElementById('q2-notes').value.trim();
+    const q3        = document.getElementById('q3-ans').value.trim();
+
+    // Validate
+    if (!scriber || !responder || !team || !date || !q1 || !causeEl || !q3) {
+      showToast('Please fill in all required fields before saving.', 'error');
+      return;
+    }
+
+    if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_URL_HERE") {
+      showToast('Setup needed: paste your Google Apps Script URL into the APPS_SCRIPT_URL variable in the HTML file.', 'error');
+      return;
+    }
+
+    // Loading state
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div><span>Saving...</span>';
+
+    const timestamp = new Date().toLocaleString('en-PH', {
+      timeZone: 'Asia/Manila',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+
+    const payload = {
+      timestamp,
+      scriber,
+      responder,
+      team,
+      date,
+      q1,
+      cause: causeEl.value,
+      q2notes,
+      q3
+    };
+
+    try {
+      const response = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        showToast('✓ Response saved successfully to Google Sheets.', 'success');
+        clearForm();
+      } else {
+        throw new Error(result.message || 'Unknown error from Apps Script.');
+      }
+    } catch (err) {
+      showToast('Could not save. Error: ' + err.message + '<br><small>Check that your Apps Script URL is correct and the Web App is deployed.</small>', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<span id="btn-label">Save to Google Sheets</span>';
+    }
+  }
+</script>
+
+</body>
+</html>
