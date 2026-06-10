@@ -666,10 +666,8 @@
     };
 
     try {
-      const response = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(payload)
+      const response = await fetch(APPS_SCRIPT_URL + "?payload=" + encodeURIComponent(JSON.stringify(payload)), {
+        method: 'GET',
       });
 
       const result = await response.json();
